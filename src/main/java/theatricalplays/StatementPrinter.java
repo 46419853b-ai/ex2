@@ -22,13 +22,18 @@ public class StatementPrinter {
             result += formatPerformanceLine(perf, play, thisAmount, frmt);
             totalAmount += thisAmount;
         }
-        result += String.format("Amount owed is %s\n", frmt.format(totalAmount / 100));
-        result += String.format("You earned %s credits\n", volumeCredits);
+
+        result += printFooter(totalAmount, volumeCredits, frmt);
         return result;
     }
 
     private String printHeader(Invoice invoice) {
         return String.format("Statement for %s\n", invoice.customer);
+    }
+
+    private String printFooter(int totalAmount, int volumeCredits, NumberFormat frmt) {
+        return String.format("Amount owed is %s\n", frmt.format(totalAmount / 100))
+                + String.format("You earned %s credits\n", volumeCredits);
     }
 
     private String formatPerformanceLine(Performance perf, Play play, int thisAmount, NumberFormat frmt) {
@@ -73,6 +78,7 @@ public class StatementPrinter {
         return volumeCredits;
     }
 }
+
 
 
 
