@@ -9,7 +9,7 @@ public class StatementPrinter {
     public String print(Invoice invoice, Map<String, Play> plays) {
         var totalAmount = 0;
         var volumeCredits = 0;
-        var result = String.format("Statement for %s\n", invoice.customer);
+        var result = printHeader(invoice);
 
         NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
 
@@ -25,6 +25,10 @@ public class StatementPrinter {
         result += String.format("Amount owed is %s\n", frmt.format(totalAmount / 100));
         result += String.format("You earned %s credits\n", volumeCredits);
         return result;
+    }
+
+    private String printHeader(Invoice invoice) {
+        return String.format("Statement for %s\n", invoice.customer);
     }
 
     private String formatPerformanceLine(Performance perf, Play play, int thisAmount, NumberFormat frmt) {
@@ -69,6 +73,7 @@ public class StatementPrinter {
         return volumeCredits;
     }
 }
+
 
 
 
