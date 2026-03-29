@@ -11,7 +11,7 @@ public class StatementPrinter {
         var volumeCredits = 0;
         var statement = printHeader(invoice);
 
-        NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (var perf : invoice.performances) {
             var play = playFor(plays, perf);
@@ -19,11 +19,11 @@ public class StatementPrinter {
 
             volumeCredits += volumeCreditsFor(perf, play);
 
-            statement += formatPerformanceLine(perf, play, thisAmount, frmt);
+            statement += formatPerformanceLine(perf, play, thisAmount, format);
             totalAmount += thisAmount;
         }
 
-        statement += printFooter(totalAmount, volumeCredits, frmt);
+        statement += printFooter(totalAmount, volumeCredits, format);
         return statement;
     }
 
@@ -31,13 +31,13 @@ public class StatementPrinter {
         return String.format("Statement for %s\n", invoice.customer);
     }
 
-    private String printFooter(int totalAmount, int volumeCredits, NumberFormat frmt) {
-        return String.format("Amount owed is %s\n", frmt.format(totalAmount / 100))
+    private String printFooter(int totalAmount, int volumeCredits, NumberFormat format) {
+        return String.format("Amount owed is %s\n", format.format(totalAmount / 100))
                 + String.format("You earned %s credits\n", volumeCredits);
     }
 
-    private String formatPerformanceLine(Performance perf, Play play, int thisAmount, NumberFormat frmt) {
-        return String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience);
+    private String formatPerformanceLine(Performance perf, Play play, int thisAmount, NumberFormat format) {
+        return String.format("  %s: %s (%s seats)\n", play.name, format.format(thisAmount / 100), perf.audience);
     }
 
     private Play playFor(Map<String, Play> plays, Performance perf) {
@@ -78,6 +78,7 @@ public class StatementPrinter {
         return volumeCredits;
     }
 }
+
 
 
 
