@@ -9,7 +9,7 @@ public class StatementPrinter {
     public String print(Invoice invoice, Map<String, Play> plays) {
         var totalAmount = 0;
         var volumeCredits = 0;
-        var result = printHeader(invoice);
+        var statement = printHeader(invoice);
 
         NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
 
@@ -19,12 +19,12 @@ public class StatementPrinter {
 
             volumeCredits += volumeCreditsFor(perf, play);
 
-            result += formatPerformanceLine(perf, play, thisAmount, frmt);
+            statement += formatPerformanceLine(perf, play, thisAmount, frmt);
             totalAmount += thisAmount;
         }
 
-        result += printFooter(totalAmount, volumeCredits, frmt);
-        return result;
+        statement += printFooter(totalAmount, volumeCredits, frmt);
+        return statement;
     }
 
     private String printHeader(Invoice invoice) {
@@ -78,6 +78,7 @@ public class StatementPrinter {
         return volumeCredits;
     }
 }
+
 
 
 
