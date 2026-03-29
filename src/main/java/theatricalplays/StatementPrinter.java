@@ -19,12 +19,16 @@ public class StatementPrinter {
 
             volumeCredits += volumeCreditsFor(perf, play);
 
-            result += String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience);
+            result += formatPerformanceLine(perf, play, thisAmount, frmt);
             totalAmount += thisAmount;
         }
         result += String.format("Amount owed is %s\n", frmt.format(totalAmount / 100));
         result += String.format("You earned %s credits\n", volumeCredits);
         return result;
+    }
+
+    private String formatPerformanceLine(Performance perf, Play play, int thisAmount, NumberFormat frmt) {
+        return String.format("  %s: %s (%s seats)\n", play.name, frmt.format(thisAmount / 100), perf.audience);
     }
 
     private Play playFor(Map<String, Play> plays, Performance perf) {
@@ -65,6 +69,7 @@ public class StatementPrinter {
         return volumeCredits;
     }
 }
+
 
 
 
